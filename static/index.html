@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DRS.VIP-AI - Advanced AI Command Operating Environment">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>DRS.VIP-AI | Neural Command Center</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/themes/dark-neural.css" id="theme-stylesheet">
+    
+    <!-- Neural Graphics -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body class="theme-dark-neural">
+    <!-- Boot Screen -->
+    <div id="boot-screen" class="boot-screen">
+        <div class="boot-container">
+            <div class="boot-logo">
+                <svg viewBox="0 0 200 200" class="boot-logo-svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#f0f;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="url(#logoGradient)" stroke-width="2" class="boot-circle"/>
+                    <path d="M100 30 L100 170 M30 100 L170 100" stroke="url(#logoGradient)" stroke-width="1" opacity="0.5"/>
+                    <circle cx="100" cy="100" r="30" fill="none" stroke="url(#logoGradient)" stroke-width="2" class="boot-inner-circle"/>
+                    <text x="100" y="108" text-anchor="middle" fill="url(#logoGradient)" font-family="Orbitron" font-size="24" font-weight="700">DRS</text>
+                </svg>
+            </div>
+            <div class="boot-title">DRS.VIP-AI</div>
+            <div class="boot-subtitle">Neural Command Operating Environment</div>
+            <div class="boot-progress">
+                <div class="boot-progress-bar"></div>
+            </div>
+            <div class="boot-status">Initializing neural pathways...</div>
+        </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div id="app" class="app-container hidden">
+        <!-- Neural Canvas Background -->
+        <canvas id="neural-canvas" class="neural-canvas"></canvas>
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">◈</span>
+                    <span class="logo-text">DRS.VIP-AI</span>
+                </div>
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" data-panel="chat">
+                        <span class="nav-tab-icon">💬</span>
+                        <span class="nav-tab-text">Chat</span>
+                    </button>
+                    <button class="nav-tab" data-panel="command">
+                        <span class="nav-tab-icon">⚡</span>
+                        <span class="nav-tab-text">Command</span>
+                    </button>
+                    <button class="nav-tab" data-panel="vision">
+                        <span class="nav-tab-icon">👁️</span>
+                        <span class="nav-tab-text">Vision</span>
+                    </button>
+                    <button class="nav-tab" data-panel="analytics">
+                        <span class="nav-tab-icon">📊</span>
+                        <span class="nav-tab-text">Analytics</span>
+                    </button>
+                </nav>
+            </div>
+            <div class="header-center">
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-indicator online"></span>
+                        <span class="status-label">Neural Core</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-indicator" id="model-status"></span>
+                        <span class="status-label" id="model-name">Model: --</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-indicator" id="gpu-status"></span>
+                        <span class="status-label">GPU Acceleration</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="icon-button" id="theme-toggle" title="Toggle Theme">
+                    <span class="icon">🎨</span>
+                </button>
+                <button class="icon-button" id="settings-btn" title="Settings">
+                    <span class="icon">⚙️</span>
+                </button>
+                <button class="icon-button" id="notifications-btn" title="Notifications">
+                    <span class="icon">🔔</span>
+                    <span class="notification-badge" id="notification-count">0</span>
+                </button>
+                <div class="user-menu">
+                    <button class="user-avatar" id="user-menu-btn">
+                        <span class="avatar-text">AI</span>
+                    </button>
+                    <div class="dropdown-menu" id="user-dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-username">Guest User</span>
+                            <span class="dropdown-email">Not authenticated</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" data-action="profile">
+                            <span>👤</span> Profile
+                        </button>
+                        <button class="dropdown-item" data-action="api-keys">
+                            <span>🔑</span> API Keys
+                        </button>
+                        <button class="dropdown-item" data-action="logout">
+                            <span>🚪</span> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-header">
+                        <span class="sidebar-title">Conversations</span>
+                        <button class="icon-button small" id="new-chat-btn" title="New Chat">
+                            <span>➕</span>
+                        </button>
+                    </div>
+                    <div class="conversation-list" id="conversation-list">
+                        <div class="conversation-item active">
+                            <span class="conversation-icon">💭</span>
+                            <span class="conversation-title">New Conversation</span>
+                            <span class="conversation-time">Now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-header">
+                        <span class="sidebar-title">Quick Actions</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" data-action="analyze">
+                            <span class="action-icon">🔍</span>
+                            <span class="action-label">Analyze</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="summarize">
+                            <span class="action-icon">📝</span>
+                            <span class="action-label">Summarize</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="code">
+                            <span class="action-icon">💻</span>
+                            <span class="action-label">Code</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="translate">
+                            <span class="action-icon">🌐</span>
+                            <span class="action-label">Translate</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-header">
+                        <span class="sidebar-title">System Status</span>
+                    </div>
+                    <div class="system-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">CPU</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="cpu-usage" style="width: 45%"></div>
+                            </div>
+                            <span class="stat-value">45%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Memory</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="memory-usage" style="width: 62%"></div>
+                            </div>
+                            <span class="stat-value">62%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">GPU</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="gpu-usage" style="width: 78%"></div>
+                            </div>
+                            <span class="stat-value">78%</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chat Panel -->
+            <div class="panel chat-panel active" id="chat-panel">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">◈</div>
+                        <h1 class="welcome-title">Welcome to DRS.VIP-AI</h1>
+                        <p class="welcome-subtitle">Your Advanced Neural Command Center</p>
+                        <div class="feature-cards">
+                            <div class="feature-card">
+                                <span class="feature-icon">🧠</span>
+                                <h3>Neural Processing</h3>
+                                <p>Advanced AI with context-aware responses</p>
+                            </div>
+                            <div class="feature-card">
+                                <span class="feature-icon">🔐</span>
+                                <h3>Secure</h3>
+                                <p>End-to-end encryption for all interactions</p>
+                            </div>
+                            <div class="feature-card">
+                                <span class="feature-icon">⚡</span>
+                                <h3>Fast</h3>
+                                <p>GPU-accelerated inference and streaming</p>
+                            </div>
+                            <div class="feature-card">
+                                <span class="feature-icon">🔮</span>
+                                <h3>Predictive</h3>
+                                <p>Anticipates your needs with ML</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <div class="input-container">
+                        <div class="input-actions-left">
+                            <button class="input-action-btn" id="attach-btn" title="Attach File">
+                                <span>📎</span>
+                            </button>
+                            <button class="input-action-btn" id="voice-btn" title="Voice Input">
+                                <span>🎤</span>
+                            </button>
+                        </div>
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="chat-input" 
+                                class="chat-input" 
+                                placeholder="Send a message to DRS.VIP-AI..."
+                                rows="1"
+                            ></textarea>
+                        </div>
+                        <div class="input-actions-right">
+                            <select id="model-select" class="model-select">
+                                <option value="llama3">Llama 3 8B</option>
+                                <option value="mistral">Mistral 7B</option>
+                                <option value="codellama">Code Llama</option>
+                            </select>
+                            <button class="send-button" id="send-btn" title="Send Message">
+                                <span>➤</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-footer">
+                        <span class="token-counter" id="token-counter">0 / 4096 tokens</span>
+                        <span class="privacy-notice">🔒 End-to-end encrypted</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command Panel -->
+            <div class="panel command-panel" id="command-panel">
+                <div class="command-header">
+                    <h2>Command Center</h2>
+                    <p>Execute system commands and automation</p>
+                </div>
+                <div class="command-terminal">
+                    <div class="terminal-output" id="terminal-output">
+                        <div class="terminal-line output">DRS.VIP-AI Command Terminal v1.0.0</div>
+                        <div class="terminal-line output">Type 'help' for available commands</div>
+                    </div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">drs@vip-ai:~$</span>
+                        <input type="text" id="terminal-input" class="terminal-input" placeholder="Enter command...">
+                    </div>
+                </div>
+                <div class="command-shortcuts">
+                    <h3>Quick Commands</h3>
+                    <div class="shortcut-grid">
+                        <button class="shortcut-btn" data-command="status">
+                            <span class="shortcut-icon">📊</span>
+                            <span class="shortcut-label">System Status</span>
+                        </button>
+                        <button class="shortcut-btn" data-command="models">
+                            <span class="shortcut-icon">🧠</span>
+                            <span class="shortcut-label">List Models</span>
+                        </button>
+                        <button class="shortcut-btn" data-command="memory">
+                            <span class="shortcut-icon">💾</span>
+                            <span class="shortcut-label">Memory Stats</span>
+                        </button>
+                        <button class="shortcut-btn" data-command="security">
+                            <span class="shortcut-icon">🔐</span>
+                            <span class="shortcut-label">Security Audit</span>
+                        </button>
+                        <button class="shortcut-btn" data-command="logs">
+                            <span class="shortcut-icon">📜</span>
+                            <span class="shortcut-label">View Logs</span>
+                        </button>
+                        <button class="shortcut-btn" data-command="clear">
+                            <span class="shortcut-icon">🗑️</span>
+                            <span class="shortcut-label">Clear Terminal</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision Panel -->
+            <div class="panel vision-panel" id="vision-panel">
+                <div class="vision-header">
+                    <h2>Neural Vision</h2>
+                    <p>AI-powered image analysis and generation</p>
+                </div>
+                <div class="vision-content">
+                    <div class="vision-upload-zone" id="upload-zone">
+                        <div class="upload-icon">🖼️</div>
+                        <p class="upload-text">Drag & drop an image or click to upload</p>
+                        <input type="file" id="image-input" accept="image/*" hidden>
+                    </div>
+                    <div class="vision-preview" id="vision-preview">
+                        <img id="preview-image" src="" alt="Preview">
+                        <div class="vision-actions">
+                            <button class="vision-action-btn" data-action="analyze">
+                                <span>🔍</span> Analyze
+                            </button>
+                            <button class="vision-action-btn" data-action="ocr">
+                                <span>📝</span> Extract Text
+                            </button>
+                            <button class="vision-action-btn" data-action="describe">
+                                <span>💬</span> Describe
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vision-results" id="vision-results">
+                        <h3>Analysis Results</h3>
+                        <div class="results-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Panel -->
+            <div class="panel analytics-panel" id="analytics-panel">
+                <div class="analytics-header">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="analytics-controls">
+                        <select id="analytics-timeframe" class="timeframe-select">
+                            <option value="1h">Last Hour</option>
+                            <option value="24h" selected>Last 24 Hours</option>
+                            <option value="7d">Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <span class="card-title">Total Interactions</span>
+                            <span class="card-trend up">↑ 12%</span>
+                        </div>
+                        <div class="card-value" id="total-interactions">1,234</div>
+                        <div class="card-chart">
+                            <canvas id="interactions-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <span class="card-title">Avg Response Time</span>
+                            <span class="card-trend down">↓ 8%</span>
+                        </div>
+                        <div class="card-value" id="avg-response-time">245ms</div>
+                        <div class="card-chart">
+                            <canvas id="response-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <span class="card-title">Tokens Generated</span>
+                            <span class="card-trend up">↑ 23%</span>
+                        </div>
+                        <div class="card-value" id="tokens-generated">456K</div>
+                        <div class="card-chart">
+                            <canvas id="tokens-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <span class="card-title">Model Usage</span>
+                        </div>
+                        <div class="model-usage-list">
+                            <div class="model-usage-item">
+                                <span class="model-name">Llama 3 8B</span>
+                                <div class="usage-bar">
+                                    <div class="usage-fill" style="width: 65%"></div>
+                                </div>
+                                <span class="usage-percent">65%</span>
+                            </div>
+                            <div class="model-usage-item">
+                                <span class="model-name">Mistral 7B</span>
+                                <div class="usage-bar">
+                                    <div class="usage-fill" style="width: 25%"></div>
+                                </div>
+                                <span class="usage-percent">25%</span>
+                            </div>
+                            <div class="model-usage-item">
+                                <span class="model-name">Code Llama</span>
+                                <div class="usage-bar">
+                                    <div class="usage-fill" style="width: 10%"></div>
+                                </div>
+                                <span class="usage-percent">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analytics-card wide">
+                        <div class="card-header">
+                            <span class="card-title">Request Timeline</span>
+                        </div>
+                        <div class="timeline-chart">
+                            <canvas id="timeline-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <span class="card-title">Error Rate</span>
+                            <span class="card-trend stable">→ 0%</span>
+                        </div>
+                        <div class="card-value success">0.02%</div>
+                        <div class="error-breakdown">
+                            <div class="error-item">
+                                <span>4xx Errors</span>
+                                <span>12</span>
+                            </div>
+                            <div class="error-item">
+                                <span>5xx Errors</span>
+                                <span>3</span>
+                            </div>
+                            <div class="error-item">
+                                <span>Timeouts</span>
+                                <span>1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Command Palette -->
+        <div class="command-palette-overlay" id="command-palette-overlay">
+            <div class="command-palette">
+                <div class="palette-input-wrapper">
+                    <span class="palette-icon">⚡</span>
+                    <input type="text" id="palette-input" class="palette-input" placeholder="Type a command or search...">
+                    <span class="palette-shortcut">ESC to close</span>
+                </div>
+                <div class="palette-results" id="palette-results">
+                    <div class="palette-group">
+                        <div class="palette-group-title">Actions</div>
+                        <div class="palette-item" data-action="new-chat">
+                            <span class="palette-item-icon">💬</span>
+                            <span class="palette-item-text">New Chat</span>
+                            <span class="palette-item-shortcut">Ctrl+N</span>
+                        </div>
+                        <div class="palette-item" data-action="settings">
+                            <span class="palette-item-icon">⚙️</span>
+                            <span class="palette-item-text">Open Settings</span>
+                            <span class="palette-item-shortcut">Ctrl+,</span>
+                        </div>
+                        <div class="palette-item" data-action="theme">
+                            <span class="palette-item-icon">🎨</span>
+                            <span class="palette-item-text">Change Theme</span>
+                            <span class="palette-item-shortcut">Ctrl+T</span>
+                        </div>
+                    </div>
+                    <div class="palette-group">
+                        <div class="palette-group-title">Navigation</div>
+                        <div class="palette-item" data-action="go-chat">
+                            <span class="palette-item-icon">💬</span>
+                            <span class="palette-item-text">Go to Chat</span>
+                            <span class="palette-item-shortcut">Alt+1</span>
+                        </div>
+                        <div class="palette-item" data-action="go-command">
+                            <span class="palette-item-icon">⚡</span>
+                            <span class="palette-item-text">Go to Command</span>
+                            <span class="palette-item-shortcut">Alt+2</span>
+                        </div>
+                        <div class="palette-item" data-action="go-vision">
+                            <span class="palette-item-icon">👁️</span>
+                            <span class="palette-item-text">Go to Vision</span>
+                            <span class="palette-item-shortcut">Alt+3</span>
+                        </div>
+                        <div class="palette-item" data-action="go-analytics">
+                            <span class="palette-item-icon">📊</span>
+                            <span class="palette-item-text">Go to Analytics</span>
+                            <span class="palette-item-shortcut">Alt+4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settings-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="modal-close" id="settings-close">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-tabs">
+                        <button class="settings-tab active" data-tab="general">General</button>
+                        <button class="settings-tab" data-tab="models">Models</button>
+                        <button class="settings-tab" data-tab="appearance">Appearance</button>
+                        <button class="settings-tab" data-tab="security">Security</button>
+                        <button class="settings-tab" data-tab="advanced">Advanced</button>
+                    </div>
+                    <div class="settings-content" id="settings-content">
+                        <!-- General Settings -->
+                        <div class="settings-panel active" id="settings-general">
+                            <div class="setting-group">
+                                <label class="setting-label">Default Model</label>
+                                <select class="setting-input" id="setting-default-model">
+                                    <option value="llama3">Llama 3 8B</option>
+                                    <option value="mistral">Mistral 7B</option>
+                                    <option value="codellama">Code Llama</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Response Streaming</label>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-streaming" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Temperature</label>
+                                <input type="range" id="setting-temperature" min="0" max="2" step="0.1" value="0.7">
+                                <span class="range-value">0.7</span>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Max Tokens</label>
+                                <input type="number" id="setting-max-tokens" value="2048" min="100" max="8192">
+                            </div>
+                        </div>
+                        <!-- Appearance Settings -->
+                        <div class="settings-panel" id="settings-appearance">
+                            <div class="setting-group">
+                                <label class="setting-label">Theme</label>
+                                <div class="theme-selector">
+                                    <button class="theme-option active" data-theme="dark-neural">
+                                        <span class="theme-preview dark-neural"></span>
+                                        <span class="theme-name">Dark Neural</span>
+                                    </button>
+                                    <button class="theme-option" data-theme="light-holo">
+                                        <span class="theme-preview light-holo"></span>
+                                        <span class="theme-name">Light Holo</span>
+                                    </button>
+                                    <button class="theme-option" data-theme="quantum-glass">
+                                        <span class="theme-preview quantum-glass"></span>
+                                        <span class="theme-name">Quantum Glass</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Neural Animations</label>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-animations" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Particle Count</label>
+                                <input type="range" id="setting-particles" min="1000" max="30000" step="1000" value="10000">
+                                <span class="range-value">10,000</span>
+                            </div>
+                        </div>
+                        <!-- Security Settings -->
+                        <div class="settings-panel" id="settings-security">
+                            <div class="setting-group">
+                                <label class="setting-label">End-to-End Encryption</label>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-encryption" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Two-Factor Authentication</label>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-2fa">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Session Timeout (minutes)</label>
+                                <input type="number" id="setting-timeout" value="60" min="5" max="480">
+                            </div>
+                        </div>
+                        <!-- Models Settings -->
+                        <div class="settings-panel" id="settings-models">
+                            <div class="models-list" id="models-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <button class="btn btn-primary" id="refresh-models-btn">
+                                <span>🔄</span> Refresh Models
+                            </button>
+                        </div>
+                        <!-- Advanced Settings -->
+                        <div class="settings-panel" id="settings-advanced">
+                            <div class="setting-group">
+                                <label class="setting-label">API Endpoint</label>
+                                <input type="text" id="setting-api-endpoint" value="http://localhost:5000" class="setting-input">
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Ollama URL</label>
+                                <input type="text" id="setting-ollama-url" value="http://localhost:11434" class="setting-input">
+                            </div>
+                            <div class="setting-group">
+                                <label class="setting-label">Debug Mode</label>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-debug">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-group">
+                                <button class="btn btn-danger" id="clear-data-btn">
+                                    <span>🗑️</span> Clear All Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="settings-cancel">Cancel</button>
+                    <button class="btn btn-primary" id="settings-save">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Panel -->
+        <div class="notifications-panel" id="notifications-panel">
+            <div class="notifications-header">
+                <h3>Notifications</h3>
+                <button class="text-btn" id="clear-notifications">Clear All</button>
+            </div>
+            <div class="notifications-list" id="notifications-list">
+                <div class="notification-item">
+                    <span class="notification-icon">✅</span>
+                    <div class="notification-content">
+                        <span class="notification-title">System Online</span>
+                        <span class="notification-message">DRS.VIP-AI is fully operational</span>
+                    </div>
+                    <span class="notification-time">Just now</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Status Bar -->
+        <footer class="footer">
+            <div class="footer-left">
+                <span class="footer-status">
+                    <span class="status-dot online"></span>
+                    Connected
+                </span>
+                <span class="footer-divider">|</span>
+                <span class="footer-info">DRS.VIP-AI v1.0.0</span>
+            </div>
+            <div class="footer-center">
+                <span class="footer-command-hint">Press <kbd>Ctrl+K</kbd> for command palette</span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-stats">
+                    <span id="footer-tokens">0 tokens</span>
+                    <span class="footer-divider">|</span>
+                    <span id="footer-latency">0ms latency</span>
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/part1-core.js"></script>
+    <script type="module" src="/js/part2-graphics.js"></script>
+    <script type="module" src="/js/part3-api.js"></script>
+    <script type="module" src="/js/part4-chat.js"></script>
+    <script type="module" src="/js/part5-system.js"></script>
+    
+    <script>
+        // Boot sequence
+        document.addEventListener('DOMContentLoaded', async () => {
+            const bootScreen = document.getElementById('boot-screen');
+            const app = document.getElementById('app');
+            const bootStatus = document.querySelector('.boot-status');
+            const bootProgress = document.querySelector('.boot-progress-bar');
+            
+            const bootSteps = [
+                'Initializing neural pathways...',
+                'Loading AI models...',
+                'Establishing secure connection...',
+                'Configuring GPU acceleration...',
+                'Starting neural visualization...',
+                'Loading user preferences...',
+                'Finalizing boot sequence...'
+            ];
+            
+            for (let i = 0; i < bootSteps.length; i++) {
+                bootStatus.textContent = bootSteps[i];
+                bootProgress.style.width = `${((i + 1) / bootSteps.length) * 100}%`;
+                await new Promise(r => setTimeout(r, 300));
+            }
+            
+            bootStatus.textContent = 'System Ready';
+            bootProgress.style.width = '100%';
+            
+            await new Promise(r => setTimeout(r, 500));
+            
+            bootScreen.classList.add('fade-out');
+            app.classList.remove('hidden');
+            
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+            }, 500);
+            
+            // Initialize app
+            if (window.DRSVIPAI) {
+                await window.DRSVIPAI.initialize();
+            }
+        });
+    </script>
+</body>
+</html>

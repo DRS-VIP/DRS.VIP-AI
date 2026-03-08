@@ -1,0 +1,818 @@
+/**
+ * DRS.VIP-AI Quantum Glass Theme
+ * A futuristic theme with glass morphism and quantum-inspired aesthetics
+ * @version 1.0.0
+ * @author DRS.VIP-AI Engineering Team
+ */
+
+/* ============================================================================
+   THEME VARIABLES
+   ============================================================================ */
+
+:root[data-theme="quantum-glass"],
+.theme-quantum-glass {
+    /* Background Colors */
+    --bg-primary: #050510;
+    --bg-secondary: #0a0a1a;
+    --bg-tertiary: #0f0f25;
+    --bg-elevated: #14142f;
+    --bg-overlay: rgba(5, 5, 16, 0.9);
+    
+    /* Surface Colors - Glass Effect */
+    --surface-primary: rgba(20, 20, 47, 0.6);
+    --surface-secondary: rgba(30, 30, 60, 0.5);
+    --surface-tertiary: rgba(40, 40, 80, 0.4);
+    --surface-glass: rgba(255, 255, 255, 0.03);
+    --surface-glass-light: rgba(255, 255, 255, 0.08);
+    
+    /* Text Colors */
+    --text-primary: rgba(255, 255, 255, 0.95);
+    --text-secondary: rgba(255, 255, 255, 0.75);
+    --text-tertiary: rgba(255, 255, 255, 0.55);
+    --text-muted: rgba(255, 255, 255, 0.35);
+    --text-disabled: rgba(255, 255, 255, 0.2);
+    
+    /* Quantum Colors */
+    --quantum-blue: #00f5ff;
+    --quantum-purple: #bf00ff;
+    --quantum-pink: #ff00aa;
+    --quantum-green: #00ff88;
+    
+    /* Accent Colors */
+    --accent-primary: #00f5ff;
+    --accent-primary-rgb: 0, 245, 255;
+    --accent-secondary: #bf00ff;
+    --accent-secondary-rgb: 191, 0, 255;
+    --accent-tertiary: #00ff88;
+    --accent-tertiary-rgb: 0, 255, 136;
+    
+    /* Accent Hover States */
+    --accent-hover: #33f7ff;
+    --accent-active: #00c4cc;
+    --accent-glow: rgba(0, 245, 255, 0.4);
+    
+    /* Border Colors */
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-color-hover: rgba(255, 255, 255, 0.12);
+    --border-color-active: rgba(0, 245, 255, 0.5);
+    
+    /* Glass Border */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-highlight: rgba(255, 255, 255, 0.2);
+    
+    /* Status Colors */
+    --status-success: #00ff88;
+    --status-success-bg: rgba(0, 255, 136, 0.15);
+    --status-warning: #ffaa00;
+    --status-warning-bg: rgba(255, 170, 0, 0.15);
+    --status-error: #ff4466;
+    --status-error-bg: rgba(255, 68, 102, 0.15);
+    --status-info: #00f5ff;
+    --status-info-bg: rgba(0, 245, 255, 0.15);
+    
+    /* Quantum Gradient Definitions */
+    --gradient-primary: linear-gradient(135deg, #00f5ff 0%, #bf00ff 100%);
+    --gradient-secondary: linear-gradient(135deg, #bf00ff 0%, #ff00aa 100%);
+    --gradient-success: linear-gradient(135deg, #00ff88 0%, #00f5ff 100%);
+    --gradient-quantum: linear-gradient(135deg, 
+        rgba(0, 245, 255, 0.2) 0%, 
+        rgba(191, 0, 255, 0.2) 33%,
+        rgba(255, 0, 170, 0.2) 66%,
+        rgba(0, 255, 136, 0.2) 100%
+    );
+    --gradient-glass: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.02) 100%
+    );
+    
+    /* Glass Effect Properties */
+    --glass-blur: 20px;
+    --glass-blur-strong: 40px;
+    --glass-saturate: 180%;
+    
+    /* Shadow Colors */
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-glow-color: rgba(0, 245, 255, 0.3);
+    
+    /* Scrollbar Colors */
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
+    
+    /* Animation Speeds */
+    --quantum-speed-fast: 0.3s;
+    --quantum-speed-normal: 0.5s;
+    --quantum-speed-slow: 1s;
+}
+
+/* ============================================================================
+   THEME-SPECIFIC STYLES
+   ============================================================================ */
+
+/* Body Background */
+:root[data-theme="quantum-glass"] body,
+.theme-quantum-glass body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Quantum Background Pattern */
+:root[data-theme="quantum-glass"] body::before,
+.theme-quantum-glass body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse at 10% 10%, rgba(0, 245, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 10%, rgba(191, 0, 255, 0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 90%, rgba(255, 0, 170, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at 30% 50%, rgba(0, 255, 136, 0.08) 0%, transparent 30%);
+    pointer-events: none;
+    z-index: -1;
+    animation: quantumShift 20s ease-in-out infinite;
+}
+
+@keyframes quantumShift {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.1) rotate(1deg);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    75% {
+        transform: scale(1.05) rotate(-1deg);
+        opacity: 0.95;
+    }
+}
+
+/* Quantum Grid Overlay */
+:root[data-theme="quantum-glass"] body::after,
+.theme-quantum-glass body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(0, 245, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Header Styles - Glass Effect */
+:root[data-theme="quantum-glass"] .app-header,
+.theme-quantum-glass .app-header {
+    background: var(--surface-primary);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border-color: var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* Sidebar Styles - Glass Effect */
+:root[data-theme="quantum-glass"] .app-sidebar,
+.theme-quantum-glass .app-sidebar {
+    background: var(--surface-primary);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border-color: var(--glass-border);
+}
+
+/* Navigation Items */
+:root[data-theme="quantum-glass"] .nav-item,
+.theme-quantum-glass .nav-item {
+    color: var(--text-secondary);
+    border-radius: 12px;
+    transition: all var(--quantum-speed-fast);
+}
+
+:root[data-theme="quantum-glass"] .nav-item:hover,
+.theme-quantum-glass .nav-item:hover {
+    background: var(--surface-glass-light);
+    color: var(--text-primary);
+}
+
+:root[data-theme="quantum-glass"] .nav-item.active,
+.theme-quantum-glass .nav-item.active {
+    background: var(--gradient-quantum);
+    color: var(--quantum-blue);
+    border: 1px solid rgba(0, 245, 255, 0.3);
+}
+
+/* Cards - Glass Effect */
+:root[data-theme="quantum-glass"] .card,
+.theme-quantum-glass .card {
+    background: var(--surface-primary);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    transition: all var(--quantum-speed-fast);
+}
+
+:root[data-theme="quantum-glass"] .card:hover,
+.theme-quantum-glass .card:hover {
+    border-color: var(--glass-border-highlight);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(0, 245, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Glass Cards - Enhanced */
+:root[data-theme="quantum-glass"] .card-glass,
+.theme-quantum-glass .card-glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border-highlight);
+    border-radius: 24px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Primary Button - Quantum Glow */
+:root[data-theme="quantum-glass"] .btn-primary,
+.theme-quantum-glass .btn-primary {
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
+    font-weight: 700;
+    border: none;
+    box-shadow: 
+        0 4px 15px rgba(0, 245, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all var(--quantum-speed-fast);
+}
+
+:root[data-theme="quantum-glass"] .btn-primary:hover,
+.theme-quantum-glass .btn-primary:hover {
+    box-shadow: 
+        0 6px 25px rgba(0, 245, 255, 0.5),
+        0 0 40px rgba(0, 245, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Secondary Button - Glass */
+:root[data-theme="quantum-glass"] .btn-secondary,
+.theme-quantum-glass .btn-secondary {
+    background: var(--surface-glass-light);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+:root[data-theme="quantum-glass"] .btn-secondary:hover,
+.theme-quantum-glass .btn-secondary:hover {
+    background: var(--surface-glass-light);
+    border-color: var(--glass-border-highlight);
+}
+
+/* Ghost Button */
+:root[data-theme="quantum-glass"] .btn-ghost,
+.theme-quantum-glass .btn-ghost {
+    color: var(--text-secondary);
+    background: transparent;
+}
+
+:root[data-theme="quantum-glass"] .btn-ghost:hover,
+.theme-quantum-glass .btn-ghost:hover {
+    background: var(--surface-glass-light);
+    color: var(--text-primary);
+}
+
+/* Input Fields - Glass Effect */
+:root[data-theme="quantum-glass"] .input,
+.theme-quantum-glass .input {
+    background: var(--surface-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    border-radius: 12px;
+}
+
+:root[data-theme="quantum-glass"] .input:focus,
+.theme-quantum-glass .input:focus {
+    border-color: var(--quantum-blue);
+    box-shadow: 
+        0 0 0 3px rgba(0, 245, 255, 0.1),
+        0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+:root[data-theme="quantum-glass"] .input::placeholder,
+.theme-quantum-glass .input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Code Blocks */
+:root[data-theme="quantum-glass"] pre,
+.theme-quantum-glass pre {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+:root[data-theme="quantum-glass"] code,
+.theme-quantum-glass code {
+    background: rgba(0, 245, 255, 0.1);
+    color: var(--quantum-blue);
+    border-radius: 6px;
+}
+
+/* Syntax Highlighting - Quantum */
+:root[data-theme="quantum-glass"] .token.keyword,
+.theme-quantum-glass .token.keyword {
+    color: var(--quantum-purple);
+}
+
+:root[data-theme="quantum-glass"] .token.string,
+.theme-quantum-glass .token.string {
+    color: var(--quantum-green);
+}
+
+:root[data-theme="quantum-glass"] .token.number,
+.theme-quantum-glass .token.number {
+    color: var(--quantum-pink);
+}
+
+:root[data-theme="quantum-glass"] .token.comment,
+.theme-quantum-glass .token.comment {
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+}
+
+:root[data-theme="quantum-glass"] .token.function,
+.theme-quantum-glass .token.function {
+    color: var(--quantum-blue);
+}
+
+/* Modal - Glass Effect */
+:root[data-theme="quantum-glass"] .modal,
+.theme-quantum-glass .modal {
+    background: var(--surface-primary);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(0, 245, 255, 0.1);
+}
+
+/* Modal Backdrop */
+:root[data-theme="quantum-glass"] .modal-backdrop,
+.theme-quantum-glass .modal-backdrop {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Dropdown - Glass Effect */
+:root[data-theme="quantum-glass"] .dropdown-menu,
+.theme-quantum-glass .dropdown-menu {
+    background: var(--surface-primary);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 245, 255, 0.1);
+}
+
+/* Command Palette - Quantum Glass */
+:root[data-theme="quantum-glass"] .command-palette,
+.theme-quantum-glass .command-palette {
+    background: var(--surface-primary);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(0, 245, 255, 0.15);
+}
+
+/* Chat Messages */
+:root[data-theme="quantum-glass"] .message-content,
+.theme-quantum-glass .message-content {
+    background: var(--surface-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+:root[data-theme="quantum-glass"] .message.user .message-content,
+.theme-quantum-glass .message.user .message-content {
+    background: var(--gradient-quantum);
+    border-color: rgba(0, 245, 255, 0.3);
+}
+
+/* Status Indicators - Quantum Glow */
+:root[data-theme="quantum-glass"] .status-dot.online,
+.theme-quantum-glass .status-dot.online {
+    background: var(--status-success);
+    box-shadow: 0 0 15px var(--status-success);
+    animation: quantumPulse 2s ease-in-out infinite;
+}
+
+:root[data-theme="quantum-glass"] .status-dot.away,
+.theme-quantum-glass .status-dot.away {
+    background: var(--status-warning);
+    box-shadow: 0 0 15px var(--status-warning);
+}
+
+:root[data-theme="quantum-glass"] .status-dot.busy,
+.theme-quantum-glass .status-dot.busy {
+    background: var(--status-error);
+    box-shadow: 0 0 15px var(--status-error);
+}
+
+@keyframes quantumPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+/* Badges */
+:root[data-theme="quantum-glass"] .badge-primary,
+.theme-quantum-glass .badge-primary {
+    background: var(--status-info-bg);
+    color: var(--quantum-blue);
+    border: 1px solid rgba(0, 245, 255, 0.3);
+}
+
+:root[data-theme="quantum-glass"] .badge-success,
+.theme-quantum-glass .badge-success {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+:root[data-theme="quantum-glass"] .badge-warning,
+.theme-quantum-glass .badge-warning {
+    background: var(--status-warning-bg);
+    color: var(--status-warning);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+}
+
+:root[data-theme="quantum-glass"] .badge-danger,
+.theme-quantum-glass .badge-danger {
+    background: var(--status-error-bg);
+    color: var(--status-error);
+    border: 1px solid rgba(255, 68, 102, 0.3);
+}
+
+/* Progress Bar */
+:root[data-theme="quantum-glass"] .progress,
+.theme-quantum-glass .progress {
+    background: var(--surface-glass);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+:root[data-theme="quantum-glass"] .progress-bar,
+.theme-quantum-glass .progress-bar {
+    background: var(--gradient-primary);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+/* Tabs */
+:root[data-theme="quantum-glass"] .tabs,
+.theme-quantum-glass .tabs {
+    background: var(--surface-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+}
+
+:root[data-theme="quantum-glass"] .tab.active,
+.theme-quantum-glass .tab.active {
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+/* Scrollbar */
+:root[data-theme="quantum-glass"] ::-webkit-scrollbar-track,
+.theme-quantum-glass ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+:root[data-theme="quantum-glass"] ::-webkit-scrollbar-thumb,
+.theme-quantum-glass ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 10px;
+}
+
+:root[data-theme="quantum-glass"] ::-webkit-scrollbar-thumb:hover,
+.theme-quantum-glass ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Selection */
+:root[data-theme="quantum-glass"] ::selection,
+.theme-quantum-glass ::selection {
+    background: rgba(0, 245, 255, 0.3);
+}
+
+/* Focus Ring */
+:root[data-theme="quantum-glass"] :focus-visible,
+.theme-quantum-glass :focus-visible {
+    outline: 2px solid var(--quantum-blue);
+    outline-offset: 2px;
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+/* ============================================================================
+   QUANTUM SPECIFIC COMPONENTS
+   ============================================================================ */
+
+/* Quantum Orb */
+.quantum-orb {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(0, 245, 255, 0.6) 30%,
+        rgba(191, 0, 255, 0.4) 60%,
+        transparent 70%
+    );
+    box-shadow: 
+        0 0 40px rgba(0, 245, 255, 0.5),
+        0 0 80px rgba(191, 0, 255, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.3);
+    animation: orbFloat 4s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+/* Quantum Glass Panel */
+.quantum-panel {
+    position: relative;
+    background: var(--gradient-glass);
+    backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+}
+
+.quantum-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%,
+        transparent 100%
+    );
+    pointer-events: none;
+}
+
+/* Quantum Glow Border */
+.quantum-glow-border {
+    position: relative;
+    border-radius: 20px;
+    padding: 2px;
+    background: var(--gradient-primary);
+}
+
+.quantum-glow-border > * {
+    background: var(--bg-primary);
+    border-radius: 18px;
+}
+
+/* Quantum Spinner */
+.quantum-spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--quantum-blue);
+    border-right-color: var(--quantum-purple);
+    animation: quantumSpin 1s linear infinite;
+}
+
+@keyframes quantumSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Quantum Particle */
+.quantum-particle {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--quantum-blue);
+    box-shadow: 0 0 10px var(--quantum-blue);
+    animation: particleMove 3s ease-in-out infinite;
+}
+
+@keyframes particleMove {
+    0%, 100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(10px, -10px);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(20px, 0);
+        opacity: 1;
+    }
+    75% {
+        transform: translate(10px, 10px);
+        opacity: 0.7;
+    }
+}
+
+/* Quantum Data Stream */
+.quantum-stream {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        var(--quantum-blue) 20%,
+        var(--quantum-purple) 50%,
+        var(--quantum-pink) 80%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: streamFlow 2s linear infinite;
+}
+
+@keyframes streamFlow {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: 0% 0;
+    }
+}
+
+/* Quantum Hologram Effect */
+.quantum-hologram {
+    position: relative;
+    color: var(--quantum-blue);
+    text-shadow: 
+        0 0 10px var(--quantum-blue),
+        0 0 20px rgba(0, 245, 255, 0.5);
+    animation: hologramFlicker 0.1s infinite;
+}
+
+@keyframes hologramFlicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.95;
+    }
+}
+
+/* Quantum Input Field */
+.quantum-input {
+    background: var(--surface-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 16px 20px;
+    color: var(--text-primary);
+    transition: all var(--quantum-speed-fast);
+}
+
+.quantum-input:focus {
+    border-color: var(--quantum-blue);
+    box-shadow: 
+        0 0 0 4px rgba(0, 245, 255, 0.1),
+        0 0 30px rgba(0, 245, 255, 0.2);
+}
+
+/* Quantum Button */
+.quantum-btn {
+    position: relative;
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid var(--quantum-blue);
+    color: var(--quantum-blue);
+    border-radius: 12px;
+    font-weight: 600;
+    overflow: hidden;
+    transition: all var(--quantum-speed-fast);
+}
+
+.quantum-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity var(--quantum-speed-fast);
+}
+
+.quantum-btn:hover {
+    color: var(--bg-primary);
+    border-color: transparent;
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
+}
+
+.quantum-btn:hover::before {
+    opacity: 1;
+}
+
+.quantum-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Quantum Divider */
+.quantum-divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--quantum-blue) 20%,
+        var(--quantum-purple) 50%,
+        var(--quantum-blue) 80%,
+        transparent 100%
+    );
+    opacity: 0.5;
+}
+
+/* Quantum Card Hover Effect */
+.quantum-card-hover {
+    transition: all var(--quantum-speed-normal);
+}
+
+.quantum-card-hover:hover {
+    transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 245, 255, 0.15);
+}
+
+/* ============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    :root[data-theme="quantum-glass"] .app-header,
+    .theme-quantum-glass .app-header {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    
+    :root[data-theme="quantum-glass"] .card,
+    .theme-quantum-glass .card {
+        border-radius: 16px;
+    }
+}
+
+/* ============================================================================
+   REDUCED MOTION
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    :root[data-theme="quantum-glass"] body::before,
+    .theme-quantum-glass body::before {
+        animation: none;
+    }
+    
+    .quantum-orb,
+    .quantum-spinner,
+    .quantum-particle,
+    .quantum-stream {
+        animation: none;
+    }
+}

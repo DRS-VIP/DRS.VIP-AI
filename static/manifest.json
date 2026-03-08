@@ -1,0 +1,87 @@
+{
+  "name": "DRS.VIP-AI Command Center",
+  "short_name": "DRS.VIP-AI",
+  "description": "World's Most Advanced AI Command Operating Environment",
+  "version": "1.0.0",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00f5ff",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["productivity", "utilities", "developer tools"],
+  "icons": [
+    {
+      "src": "/assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Chat",
+      "short_name": "Chat",
+      "description": "Start a new AI chat session",
+      "url": "/?action=new-chat"
+    },
+    {
+      "name": "System Monitor",
+      "short_name": "Monitor",
+      "description": "View system performance",
+      "url": "/?action=monitor"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "file_handlers": [
+    {
+      "action": "/?action=process-file",
+      "accept": {
+        "text/plain": [".txt"],
+        "application/json": [".json"],
+        "text/markdown": [".md"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/?action=share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["text/plain", "application/json", "text/markdown"]
+        }
+      ]
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+drs",
+      "url": "/?command=%s"
+    }
+  ]
+}

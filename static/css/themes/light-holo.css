@@ -1,0 +1,623 @@
+/**
+ * DRS.VIP-AI Light Holographic Theme
+ * A modern light theme with holographic accents
+ * @version 1.0.0
+ * @author DRS.VIP-AI Engineering Team
+ */
+
+/* ============================================================================
+   THEME VARIABLES
+   ============================================================================ */
+
+:root[data-theme="light-holo"],
+.theme-light-holo {
+    /* Background Colors */
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --bg-elevated: #ffffff;
+    --bg-overlay: rgba(0, 0, 0, 0.4);
+    
+    /* Surface Colors */
+    --surface-primary: rgba(255, 255, 255, 0.95);
+    --surface-secondary: rgba(248, 250, 252, 0.9);
+    --surface-tertiary: rgba(241, 245, 249, 0.85);
+    --surface-glass: rgba(255, 255, 255, 0.7);
+    
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: rgba(15, 23, 42, 0.8);
+    --text-tertiary: rgba(15, 23, 42, 0.6);
+    --text-muted: rgba(15, 23, 42, 0.4);
+    --text-disabled: rgba(15, 23, 42, 0.25);
+    
+    /* Accent Colors - Holographic */
+    --accent-primary: #6366f1;
+    --accent-primary-rgb: 99, 102, 241;
+    --accent-secondary: #ec4899;
+    --accent-secondary-rgb: 236, 72, 153;
+    --accent-tertiary: #06b6d4;
+    --accent-tertiary-rgb: 6, 182, 212;
+    
+    /* Holographic Gradient */
+    --holographic-start: #6366f1;
+    --holographic-mid: #ec4899;
+    --holographic-end: #06b6d4;
+    
+    /* Accent Hover States */
+    --accent-hover: #4f46e5;
+    --accent-active: #4338ca;
+    --accent-glow: rgba(99, 102, 241, 0.3);
+    
+    /* Border Colors */
+    --border-color: rgba(15, 23, 42, 0.08);
+    --border-color-hover: rgba(15, 23, 42, 0.15);
+    --border-color-active: rgba(99, 102, 241, 0.5);
+    
+    /* Status Colors */
+    --status-success: #10b981;
+    --status-success-bg: rgba(16, 185, 129, 0.1);
+    --status-warning: #f59e0b;
+    --status-warning-bg: rgba(245, 158, 11, 0.1);
+    --status-error: #ef4444;
+    --status-error-bg: rgba(239, 68, 68, 0.1);
+    --status-info: #6366f1;
+    --status-info-bg: rgba(99, 102, 241, 0.1);
+    
+    /* Holographic Colors */
+    --holo-primary: linear-gradient(135deg, #6366f1, #ec4899, #06b6d4);
+    --holo-secondary: linear-gradient(135deg, #ec4899, #f97316, #facc15);
+    --holo-tertiary: linear-gradient(135deg, #06b6d4, #10b981, #6366f1);
+    
+    /* Gradient Definitions */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+    --gradient-secondary: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+    --gradient-success: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    --gradient-light: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    --gradient-holographic: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 50%, rgba(6, 182, 212, 0.1) 100%);
+    
+    /* Shadow Colors */
+    --shadow-color: rgba(15, 23, 42, 0.08);
+    --shadow-glow-color: rgba(99, 102, 241, 0.2);
+    
+    /* Scrollbar Colors */
+    --scrollbar-track: rgba(15, 23, 42, 0.05);
+    --scrollbar-thumb: rgba(15, 23, 42, 0.2);
+    --scrollbar-thumb-hover: rgba(15, 23, 42, 0.3);
+}
+
+/* ============================================================================
+   THEME-SPECIFIC STYLES
+   ============================================================================ */
+
+/* Body Background */
+:root[data-theme="light-holo"] body,
+.theme-light-holo body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Holographic Background Pattern */
+:root[data-theme="light-holo"] body::before,
+.theme-light-holo body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse at 0% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 0%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Subtle Grid Pattern */
+:root[data-theme="light-holo"] body::after,
+.theme-light-holo body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(99, 102, 241, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Header Styles */
+:root[data-theme="light-holo"] .app-header,
+.theme-light-holo .app-header {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--border-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Sidebar Styles */
+:root[data-theme="light-holo"] .app-sidebar,
+.theme-light-holo .app-sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--border-color);
+}
+
+/* Navigation Items */
+:root[data-theme="light-holo"] .nav-item,
+.theme-light-holo .nav-item {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="light-holo"] .nav-item:hover,
+.theme-light-holo .nav-item:hover {
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--text-primary);
+}
+
+:root[data-theme="light-holo"] .nav-item.active,
+.theme-light-holo .nav-item.active {
+    background: var(--gradient-holographic);
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+/* Cards */
+:root[data-theme="light-holo"] .card,
+.theme-light-holo .card {
+    background: var(--surface-primary);
+    border-color: var(--border-color);
+    box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+:root[data-theme="light-holo"] .card:hover,
+.theme-light-holo .card:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Glass Cards */
+:root[data-theme="light-holo"] .card-glass,
+.theme-light-holo .card-glass {
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* Primary Button */
+:root[data-theme="light-holo"] .btn-primary,
+.theme-light-holo .btn-primary {
+    background: var(--gradient-primary);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+:root[data-theme="light-holo"] .btn-primary:hover,
+.theme-light-holo .btn-primary:hover {
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Secondary Button */
+:root[data-theme="light-holo"] .btn-secondary,
+.theme-light-holo .btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="light-holo"] .btn-secondary:hover,
+.theme-light-holo .btn-secondary:hover {
+    background: var(--bg-secondary);
+    border-color: var(--border-color-hover);
+}
+
+/* Ghost Button */
+:root[data-theme="light-holo"] .btn-ghost,
+.theme-light-holo .btn-ghost {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="light-holo"] .btn-ghost:hover,
+.theme-light-holo .btn-ghost:hover {
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--accent-primary);
+}
+
+/* Input Fields */
+:root[data-theme="light-holo"] .input,
+.theme-light-holo .input {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+:root[data-theme="light-holo"] .input:focus,
+.theme-light-holo .input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+:root[data-theme="light-holo"] .input::placeholder,
+.theme-light-holo .input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Code Blocks */
+:root[data-theme="light-holo"] pre,
+.theme-light-holo pre {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+:root[data-theme="light-holo"] code,
+.theme-light-holo code {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+}
+
+/* Syntax Highlighting */
+:root[data-theme="light-holo"] .token.keyword,
+.theme-light-holo .token.keyword {
+    color: #7c3aed;
+}
+
+:root[data-theme="light-holo"] .token.string,
+.theme-light-holo .token.string {
+    color: #059669;
+}
+
+:root[data-theme="light-holo"] .token.number,
+.theme-light-holo .token.number {
+    color: #dc2626;
+}
+
+:root[data-theme="light-holo"] .token.comment,
+.theme-light-holo .token.comment {
+    color: rgba(15, 23, 42, 0.4);
+    font-style: italic;
+}
+
+:root[data-theme="light-holo"] .token.function,
+.theme-light-holo .token.function {
+    color: #2563eb;
+}
+
+/* Modal */
+:root[data-theme="light-holo"] .modal,
+.theme-light-holo .modal {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Dropdown */
+:root[data-theme="light-holo"] .dropdown-menu,
+.theme-light-holo .dropdown-menu {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Command Palette */
+:root[data-theme="light-holo"] .command-palette,
+.theme-light-holo .command-palette {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.1),
+        0 0 0 1px var(--border-color);
+}
+
+/* Chat Messages */
+:root[data-theme="light-holo"] .message-content,
+.theme-light-holo .message-content {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="light-holo"] .message.user .message-content,
+.theme-light-holo .message.user .message-content {
+    background: var(--gradient-holographic);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* Status Indicators */
+:root[data-theme="light-holo"] .status-dot.online,
+.theme-light-holo .status-dot.online {
+    background: var(--status-success);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+:root[data-theme="light-holo"] .status-dot.away,
+.theme-light-holo .status-dot.away {
+    background: var(--status-warning);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+:root[data-theme="light-holo"] .status-dot.busy,
+.theme-light-holo .status-dot.busy {
+    background: var(--status-error);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+/* Badges */
+:root[data-theme="light-holo"] .badge-primary,
+.theme-light-holo .badge-primary {
+    background: var(--status-info-bg);
+    color: var(--accent-primary);
+}
+
+:root[data-theme="light-holo"] .badge-success,
+.theme-light-holo .badge-success {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+}
+
+:root[data-theme="light-holo"] .badge-warning,
+.theme-light-holo .badge-warning {
+    background: var(--status-warning-bg);
+    color: var(--status-warning);
+}
+
+:root[data-theme="light-holo"] .badge-danger,
+.theme-light-holo .badge-danger {
+    background: var(--status-error-bg);
+    color: var(--status-error);
+}
+
+/* Progress Bar */
+:root[data-theme="light-holo"] .progress,
+.theme-light-holo .progress {
+    background: rgba(15, 23, 42, 0.1);
+}
+
+:root[data-theme="light-holo"] .progress-bar,
+.theme-light-holo .progress-bar {
+    background: var(--gradient-primary);
+}
+
+/* Tabs */
+:root[data-theme="light-holo"] .tabs,
+.theme-light-holo .tabs {
+    background: var(--bg-tertiary);
+}
+
+:root[data-theme="light-holo"] .tab,
+.theme-light-holo .tab {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="light-holo"] .tab.active,
+.theme-light-holo .tab.active {
+    background: var(--bg-secondary);
+    color: var(--accent-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar */
+:root[data-theme="light-holo"] ::-webkit-scrollbar-track,
+.theme-light-holo ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+:root[data-theme="light-holo"] ::-webkit-scrollbar-thumb,
+.theme-light-holo ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 10px;
+}
+
+:root[data-theme="light-holo"] ::-webkit-scrollbar-thumb:hover,
+.theme-light-holo ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Selection */
+:root[data-theme="light-holo"] ::selection,
+.theme-light-holo ::selection {
+    background: rgba(99, 102, 241, 0.3);
+}
+
+/* Focus Ring */
+:root[data-theme="light-holo"] :focus-visible,
+.theme-light-holo :focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* ============================================================================
+   HOLOGRAPHIC SPECIFIC COMPONENTS
+   ============================================================================ */
+
+/* Holographic Text */
+.holo-text {
+    background: var(--holo-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Holographic Border */
+.holo-border {
+    position: relative;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.holo-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--holo-primary);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+/* Holographic Shimmer Effect */
+.holo-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.holo-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Holographic Glow Card */
+.holo-glow-card {
+    position: relative;
+    background: var(--surface-primary);
+    border-radius: 16px;
+}
+
+.holo-glow-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: var(--holo-primary);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.holo-glow-card:hover::before {
+    opacity: 0.5;
+}
+
+/* Holographic Icon */
+.holo-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-holographic);
+    border-radius: 12px;
+    color: var(--accent-primary);
+    font-size: 24px;
+}
+
+/* Holographic Divider */
+.holo-divider {
+    height: 1px;
+    background: var(--holo-primary);
+    opacity: 0.3;
+}
+
+/* Rainbow Gradient Animation */
+.holo-animate {
+    background-size: 200% 200%;
+    background: linear-gradient(
+        90deg,
+        #6366f1,
+        #ec4899,
+        #f97316,
+        #facc15,
+        #10b981,
+        #06b6d4,
+        #6366f1
+    );
+    background-size: 300% 100%;
+    animation: rainbowShift 5s linear infinite;
+}
+
+@keyframes rainbowShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 300% 50%;
+    }
+}
+
+/* Glass Effect */
+.holo-glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Holographic Progress */
+.holo-progress {
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.holo-progress-bar {
+    height: 100%;
+    background: var(--holo-primary);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Floating Label */
+.holo-floating-label {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: transparent;
+    padding: 0 4px;
+}
+
+.input:focus + .holo-floating-label,
+.input:not(:placeholder-shown) + .holo-floating-label {
+    top: 0;
+    font-size: 12px;
+    color: var(--accent-primary);
+    background: var(--bg-secondary);
+}
+
+/* ============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    :root[data-theme="light-holo"] .app-header,
+    .theme-light-holo .app-header {
+        background: rgba(255, 255, 255, 0.98);
+    }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+
+@media print {
+    :root[data-theme="light-holo"] body::before,
+    :root[data-theme="light-holo"] body::after,
+    .theme-light-holo body::before,
+    .theme-light-holo body::after {
+        display: none;
+    }
+}
